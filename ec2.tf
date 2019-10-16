@@ -70,3 +70,12 @@ resource "local_file" "ansible_private_key" {
   filename           = ".ssh/ansible.pem"
   file_permission    = "0400"
 }
+
+output "ansible_control_node_connection_info" {
+  value = "ssh -i ${local.private_key} ${var.username}@${aws_instance.ansible.public_ip}"
+}
+
+output "ansible_inventory" {
+  value = local.inventory
+}
+

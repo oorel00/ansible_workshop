@@ -9,3 +9,15 @@
       project_path: "{{playbook_dir}}"
       force_init: yes
       state: "{{state}}"
+    register: tf
+
+  - name: Display Ansible control node connection info
+    debug:
+      msg: "To connect to your ansible control node, use: {{tf.outputs.ansible_control_node_connection_info.value}}"
+    when: state == "present"
+
+  - name: Display Ansible inventory location
+    debug:
+      msg: "Ansible inventory was copied to ansible node control node at: {{tf.outputs.ansible_inventory.value}}"
+    when: state == "present"
+
